@@ -24,4 +24,6 @@ EXPOSE 3000
 
 USER node
 
-CMD ["npm", "run", "start:prod" ]
+ENTRYPOINT [ "npm" ]
+
+CMD ["run", "start:prod" ]
