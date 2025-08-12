@@ -44,7 +44,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Can got testing with Swagger
+## Api testing with Swagger
 ```bash
 http://localhost:3000/api
 
