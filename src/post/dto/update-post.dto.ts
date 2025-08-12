@@ -1,5 +1,14 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreatePostDto } from './create-post.dto';
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional, IsString } from 'class-validator';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-export class UpdatePostDto extends PartialType(CreatePostDto) {}
+export class UpdatePostDto {
+  @ApiProperty({
+    description: 'The title of the post',
+    example: 'My First Blog Post',
+    minLength: 1,
+  })
+  @IsString()
+  @IsOptional()
+  title: string;
+}
