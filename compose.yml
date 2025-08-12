@@ -1,0 +1,27 @@
+services:
+  
+  post-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["run", "start:prod"]
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgresql://user:1235@db:5432/post_test
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DATABASE: post_test
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 1235
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  
+volumes:
+  db_data:
