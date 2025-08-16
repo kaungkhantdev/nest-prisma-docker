@@ -44,6 +44,34 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Run with Docker
+```bash
+# create env
+cp .env.example .env
+
+# do db migrate if db is new
+npm run db:migrate
+
+# build first
+docker build . post-api
+
+# run docker and put env
+docker run -p 3000:3000 --env-file .env post-api
+
+```
+
+## Run with Docker Compose
+```bash
+# build
+docker compose build
+
+# up
+docker compose up
+
+# down
+docker compose down
+```
+
 ## Can got testing with Swagger
 ```bash
 http://localhost:3000/api

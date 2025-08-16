@@ -1,4 +1,16 @@
 services:
+  migrate: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["run", "db:migrate"]
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:1234@postgres:5432/test
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   post-api:
     build:
       context: .
@@ -7,18 +19,18 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3000
-      DATABASE_URL: postgresql://postgres:1234@postgres:5432/postgres
+      DATABASE_URL: postgresql://postgres:1234@postgres:5432/test
     ports:
       - "3000:3000"
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
 
   postgres:
     image: postgres:17
     restart: always
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=test
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1234
     ports:
